@@ -78,6 +78,7 @@
             this.textBoxFirstPlayer.Name = "textBoxFirstPlayer";
             this.textBoxFirstPlayer.Size = new System.Drawing.Size(236, 31);
             this.textBoxFirstPlayer.TabIndex = 3;
+            this.textBoxFirstPlayer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxSecondPlayer
             // 
