@@ -33,7 +33,7 @@ namespace GameUI
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            m_GameManager = new GameManager(r_SettingsForm.FirstPlayerName, r_SettingsForm.SecondPlayerName, r_SettingsForm.SecondPlayerIsReal, r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns);
+            m_GameManager = new GameManager(r_SettingsForm.FirstPlayerName, r_SettingsForm.SecondPlayerName, r_SettingsForm.SecondPlayerIsReal, r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns, r_SettingsForm.Difficulty);
             m_GameForm = new FormGame(r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns);
             r_SettingsForm.Hide();
             updateCurrentPlayerLabel();
@@ -210,7 +210,7 @@ namespace GameUI
 
         private void restartGame()
         {
-            m_GameManager = new GameManager(r_SettingsForm.FirstPlayerName, r_SettingsForm.SecondPlayerName, r_SettingsForm.SecondPlayerIsReal, r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns);
+            m_GameManager = new GameManager(r_SettingsForm.FirstPlayerName, r_SettingsForm.SecondPlayerName, r_SettingsForm.SecondPlayerIsReal, r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns, r_SettingsForm.Difficulty);
             m_GameForm.Controls.Clear();
             m_GameForm.gameRestart();
             m_IsFirstPlayerTurn = true;

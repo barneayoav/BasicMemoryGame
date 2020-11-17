@@ -11,14 +11,16 @@ namespace GameLogic
         public Board m_GameBoard;
         private Player m_FirstPlayer;
         private Player m_SecondPlayer;
+        private int m_ComputerDifficulty;
 
-        public GameManager(string i_FirstPlayerName, string i_SecondPlayerName, bool i_GameOption, int i_Rows, int i_Columns)
+        public GameManager(string i_FirstPlayerName, string i_SecondPlayerName, bool i_GameOption, int i_Rows, int i_Columns, int i_ComputerDifficulty)
         {
             m_FirstPlayer = new Player(i_FirstPlayerName, true);
             m_SecondPlayer = new Player(i_SecondPlayerName, i_GameOption);
             m_GameBoard = new Board(i_Rows, i_Columns);
             m_RandomIndex = new Random();
             m_AvailableSlots = new List<Point>();
+            m_ComputerDifficulty = i_ComputerDifficulty;
             initializeList();
         }
 
@@ -69,7 +71,25 @@ namespace GameLogic
         public Point ComputerRandomChoise(Point i_FirstChoise)
         {
             m_AvailableSlots.Remove(i_FirstChoise);
-            Point secondPoint = m_AvailableSlots[m_RandomIndex.Next(0, m_AvailableSlots.Count)];
+            Point secondPoint = i_FirstChoise; // Just to avoid error with Null
+            double isSmartMove = m_RandomIndex.Next(1, m_ComputerDifficulty);
+
+            if (isSmartMove == 1)
+            {
+                foreach (Point point in m_AvailableSlots)
+                {
+                    if (m_GameBoard.IsMatch(i_FirstChoise, point))
+                    {
+                        secondPoint = point;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                secondPoint = m_AvailableSlots[m_RandomIndex.Next(0, m_AvailableSlots.Count)];
+            }
+
             m_AvailableSlots.Add(i_FirstChoise);
 
             return secondPoint;

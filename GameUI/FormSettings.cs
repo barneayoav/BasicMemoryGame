@@ -16,6 +16,13 @@ namespace GameUI
         SixSix
     }
 
+    public enum eDifficulty
+    {
+        Easy = 8,
+        Medium = 5,
+        Hard = 3
+    }
+
     public partial class FormSettings : Form
     {
         private const int k_DefaultBoardRows = 4;
@@ -27,10 +34,12 @@ namespace GameUI
         private int m_BoardRows;
         private int m_BoardColumns;
         private eBoardSize m_BoardSize;
+        private eDifficulty m_ComputerDifficulty;
 
         public FormSettings()
         {
             m_BoardSize = eBoardSize.FourFour;
+            m_ComputerDifficulty = eDifficulty.Easy;
             m_BoardRows = k_DefaultBoardRows;
             m_BoardColumns = k_DefaultBoardColumns;
             InitializeComponent();
@@ -72,6 +81,11 @@ namespace GameUI
             get { return this.m_BoardRows; }
         }
 
+        public int Difficulty
+        {
+            get { return (int)this.m_ComputerDifficulty; }
+        }
+
         private void buttonAgainstPlayer_Click_1(object sender, EventArgs e)
         {
             textBoxSecondPlayer.Text = string.Empty;
@@ -80,6 +94,8 @@ namespace GameUI
             buttonAgainstFriend.Text = k_AgainstComputerStr;
             buttonAgainstFriend.Click -= buttonAgainstPlayer_Click_1;
             buttonAgainstFriend.Click += new EventHandler(buttonAgainstPlayer_Click_2);
+            buttonComputerDifficulty.Visible = false;
+            labelDifficulty.Visible = false;
         }
 
         private void buttonAgainstPlayer_Click_2(object sender, EventArgs e)
@@ -90,6 +106,8 @@ namespace GameUI
             buttonAgainstFriend.Text = k_AgainstAFriendStr;
             buttonAgainstFriend.Click -= buttonAgainstPlayer_Click_2;
             buttonAgainstFriend.Click += new EventHandler(buttonAgainstPlayer_Click_1);
+            buttonComputerDifficulty.Visible = true;
+            labelDifficulty.Visible = true;
         }
 
         private void buttonBoardSize_Click(object sender, EventArgs e)
@@ -151,6 +169,28 @@ namespace GameUI
                     m_BoardSize = eBoardSize.FourFour;
                     m_BoardRows = 4;
                     m_BoardColumns = 4;
+                    break;
+            }
+        }
+
+        private void buttonComputerDifficulty_Click(object sender, EventArgs e)
+        {
+            switch (m_ComputerDifficulty)
+            {
+                case eDifficulty.Easy:
+                    buttonComputerDifficulty.Text = "Medium";
+                    m_ComputerDifficulty = eDifficulty.Medium;
+                    break;
+
+                case eDifficulty.Medium:
+                    buttonComputerDifficulty.Text = "Hard";
+                    m_ComputerDifficulty = eDifficulty.Hard;
+                    break;
+
+                case eDifficulty.Hard:
+                default:
+                    buttonComputerDifficulty.Text = "Easy";
+                    m_ComputerDifficulty = eDifficulty.Easy;
                     break;
             }
         }
