@@ -189,14 +189,14 @@ namespace GameUI
 
             if (firstPlayerScore != secondPlayerScore)
             {
-                endGameMsg = string.Format("Game over.{1}{0} won the game!{1}", (firstPlayerScore > secondPlayerScore) ? m_GameManager.FirstPlayer.Name : m_GameManager.SecondPlayer.Name, Environment.NewLine);
+                endGameMsg = string.Format("{0} won the game!{1}", (firstPlayerScore > secondPlayerScore) ? m_GameManager.FirstPlayer.Name : m_GameManager.SecondPlayer.Name, Environment.NewLine);
             }
             else
             {
-                endGameMsg = string.Format("Game over.{0}It's a TIE!{0}", Environment.NewLine);
+                endGameMsg = string.Format("It's a TIE!{0}", Environment.NewLine);
             }
 
-            DialogResult gameOverDialog = MessageBox.Show(string.Format("{0}{1}Do you want a rematch?", endGameMsg, Environment.NewLine), "Memory Game Result", MessageBoxButtons.YesNo);
+            DialogResult gameOverDialog = MessageBox.Show(string.Format("{0}{1}REMATCH?", endGameMsg, Environment.NewLine), "GAME OVER", MessageBoxButtons.YesNo);
             
             if (gameOverDialog == DialogResult.Yes)
             {
@@ -210,6 +210,7 @@ namespace GameUI
 
         private void restartGame()
         {
+            m_GameForm.Hide();
             m_GameManager = new GameManager(r_SettingsForm.FirstPlayerName, r_SettingsForm.SecondPlayerName, r_SettingsForm.SecondPlayerIsReal, r_SettingsForm.BoardRows, r_SettingsForm.BoardColumns, r_SettingsForm.Difficulty);
             m_GameForm.Controls.Clear();
             m_GameForm.gameRestart();
@@ -219,6 +220,7 @@ namespace GameUI
             initializeImagesCollection();
             updateCurrentPlayerLabel();
             updatePlayersInfoLabels();
+            m_GameForm.Show();
         }
 
         private void initializeImagesCollection()

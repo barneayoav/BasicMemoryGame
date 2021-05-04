@@ -72,7 +72,7 @@ namespace GameLogic
         {
             m_AvailableSlots.Remove(i_FirstChoise);
             Point secondPoint = i_FirstChoise; // Just to avoid error with Null
-            double isSmartMove = m_RandomIndex.Next(1, m_ComputerDifficulty);
+            double isSmartMove = m_RandomIndex.Next(1, m_ComputerDifficulty + 1);
 
             if (isSmartMove == 1)
             {
